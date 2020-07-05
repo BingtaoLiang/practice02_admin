@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>发布</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+
+</head>
+<body>
+<div th:insert="navigation :: nav"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
+            <hr>
+            <form action="/insertNews" method="post">
+                <input type="hidden" name="id"  th:value="${id}">
+                <div class="form-group">
+                    <label for="title">新闻标题（简单扼要）</label>
+                    <input type="text" class="form-control"  th:value="${title}" name="title" id="title"
+                           placeholder="新闻标题..." required>
+                </div>
+                <div class="form-group">
+                    <label for="content">新闻内容（必填，请参照右侧提示）</label>
+                    <textarea name="content"  th:text="${content}" id="content" cols="30" rows="10"
+                              class="form-control" required></textarea>
+                </div>
+
+                <div class="container-fluid main">
+                    <div class="row">
+<!--                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">-->
+<!--                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"-->
+<!--                                 th:text="${error}"-->
+<!--                                 th:if="${error != null}">-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish">发布</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+            <h3>新闻发起指南</h3>
+            • 新闻标题: 请用精简的语言描述您发布的新闻，不超过25字<br>
+            • 新闻内容: 详细补充您的新闻内容， 并提供一些相关的资料：<br>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta name="viewport" content="text/html; charset=UTF-8;"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <!--    <link rel="stylesheet" href="/css/gaokao.css">-->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <style>
+
+        td {white-space:nowrap;overflow:hidden;text-overflow: ellipsis; }
+
+    </style>
+
+</head>
+<body>
+<div th:insert="navigation :: nav"></div>
+
+<div class="container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  ">
+
+        <input type="button" class="btn btn-primary" onclick=location.href="/publish" value="新增新闻" style="padding: 0 10px;margin-bottom: 8px">
+
+        <div style="display: flex;float: right" th:if="${session.user != null}" >
+            <form action="/impNews" method="post" enctype="multipart/form-data" style="display: flex">
+                <input type="file" name="file" style="width: 186px">
+                <input type="submit" class="btn btn-info"  value="导入" style="padding: 0 10px;margin-right: 8px">
+            </form>
+            <input type="button" class="btn btn-info" onclick="location.href='http://localhost:9090/expNews'" value="导出" style="padding: 0 10px">
+        </div>
+
+       <table class="table table-hover" id="tab" style="table-layout: fixed;word-wrap:break-word">
+
+            <tr th:if="${allNews} !=null">
+                <th>id</th>
+                <th>新闻标题</th>
+                <th>新闻内容</th>
+                <th>作者</th>
+                <th>发布时间</th>
+                <th></th>
+            </tr>
+
+            <tbody>
+            <tr th:each="news:${allNews}">
+                <td id="test" th:text="${news.id}"></td>
+                <td th:text="${news.title}"></td>
+                <td th:text="${news.content}" th:title="${news.content}"></td>
+                <td th:text="${news.author}"></td>
+                <td th:text="${news.releaseTime}" ></td>
+                <td>
+                    <button class="btn btn-primary" id="update"  onclick="updateNews(this)" style="padding: 0px 10px">修改</button>
+                    <button class="btn btn-danger" id="delete" onclick='deleteNews(this)' style="padding: 0px 10px">删除</button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <h4 th:text="${msg}"></h4>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+   function updateNews(e) {
+       let id = e.parentNode.parentNode.children[0].innerHTML;
+       window.location.href="/updateNews/"+id;
+   }
+</script>
+
+<script type="text/javascript">
+    function deleteNews(e) {
+
+        let id = e.parentNode.parentNode.children[0].innerHTML;
+        location.href="/deleteNews/"+id;
+    }
+</script>
+</body>
+</html>
